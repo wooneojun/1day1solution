@@ -10,12 +10,14 @@ for _ in range(n):
 num.sort()
 room = []
 heapq.heappush(room, num[0][1])
+num.remove(num[0])
 
-for i in range(1, n):
-    if num[i][0] < room[0]:
-        heapq.heappush(room, num[i][1])
+for i, j in num:
+    small = heapq.heappop(room)
+    if small <= i:
+        heapq.heappush(room, j)
     else:
-        heapq.heappop(room)
-        heapq.heappush(room, num[i][1])
+        heapq.heappush(room, small)
+        heapq.heappush(room, j)
 
 print(len(room))
