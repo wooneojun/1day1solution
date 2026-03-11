@@ -1,16 +1,19 @@
 import sys
-import heapq
 input = sys.stdin.readline
+
+import heapq
+
 heap = []
-lst = []
+
 N = int(input())
+
 for _ in range(N):
-    heapq.heappush(heap, int(input()))
-for i in range(N-1):
-    pls = heapq.heappop(heap) + heapq.heappop(heap)
-    lst.append(pls)
-    heapq.heappush(heap, pls)
-if N == 1:
-    print(0)
-else:
-    print(sum(lst))
+    num = int(input())
+    heapq.heappush(heap, num)
+cnt = 0
+while len(heap) >1:
+    a, b = heapq.heappop(heap), heapq.heappop(heap)
+    cnt += a+b
+    heapq.heappush(heap, a+b)
+
+print(cnt)
