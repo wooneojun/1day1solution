@@ -1,23 +1,23 @@
-import heapq
 import sys
+import heapq
 
 input = sys.stdin.readline
-n = int(input())
-num = []
 
-for _ in range(n):
-    num.append(list(map(int, input().split())))
-num.sort()
+N = int(input())
+lectures = []
+for _ in range(N):
+    lectures.append(list(map(int, input().split())))
+
+lectures.sort()
+
 room = []
-heapq.heappush(room, num[0][1])
-num.remove(num[0])
+heapq.heappush(room, lectures[0][1])
 
-for i, j in num:
-    small = heapq.heappop(room)
-    if small <= i:
-        heapq.heappush(room, j)
+for i in range(1, N):
+    if lectures[i][0] >= room[0]:
+        heapq.heappop(room)
+        heapq.heappush(room, lectures[i][1])
     else:
-        heapq.heappush(room, small)
-        heapq.heappush(room, j)
+        heapq.heappush(room, lectures[i][1])
 
 print(len(room))
